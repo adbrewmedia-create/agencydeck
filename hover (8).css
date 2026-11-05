@@ -1,0 +1,5 @@
+/*
+ * Hover-only rules. The reference keeps its `:hover` rules beside the rules they
+ * adjust, so they stay in `extracted.css` in the reference's order; this file is
+ * empty on purpose (the other templates move theirs here).
+ */

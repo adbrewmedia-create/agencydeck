@@ -1,0 +1,98 @@
+/* Deck mode: every section is a full-screen slide that snaps into place. */
+html:has(body.dk) { scroll-snap-type: y proximity; scroll-padding-top: 0; }
+@media (prefers-reduced-motion: no-preference) { html:has(body.dk) { scroll-behavior: smooth; } }
+
+.dk .dk-slide {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  scroll-snap-align: start;
+  padding-top: calc(var(--op-head, 76px) + 16px); padding-bottom: 76px;
+  position: relative;
+}
+.dk .dk-hero { padding: 0; }
+.dk .dk-hero .op-hero { min-height: 100svh; }
+.dk .op-offer-band.dk-slide > .op-offer-in { padding: 0; }
+.dk .op-sec-head { margin-bottom: 26px; }
+
+/* Tighter fits so the busiest slides sit inside a laptop screen. */
+.dk .op-crew-grid { max-width: min(980px, calc((100svh - 330px) * 1.45)); margin-inline: auto; }
+.dk #paid .op-ea-big { font-size: clamp(56px, 9vw, 120px); }
+.dk #paid-how .op-ea-steps { margin-bottom: 8px; }
+.dk #paid-how .ag-table-card { margin-top: 18px; }
+.dk #paid-maths .op-ea-cols { margin-top: 0; }
+.dk #site .op-sec-head { margin-bottom: 10px; }
+.dk #site .ag-chips { margin: 10px 0 14px; }
+.dk #roster .ag-roster { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+
+/* Slides fade up as they arrive. */
+@media (prefers-reduced-motion: no-preference) {
+  .dk .dk-slide > .op-wrap, .dk .dk-slide > .op-offer-in, .dk .dk-hero .op-hero-grid { transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .dk.dk-anim .dk-slide:not(.is-in) > .op-wrap, .dk.dk-anim .dk-slide:not(.is-in) > .op-offer-in, .dk.dk-anim .dk-hero:not(.is-in) .op-hero-grid { opacity: 0; transform: translateY(28px); }
+}
+
+/* Side dots. */
+.dk-dots { position: fixed; right: 18px; top: 50%; transform: translateY(-50%); z-index: 60; display: flex; flex-direction: column; gap: 10px; }
+.dk-dot { position: relative; width: 12px; height: 12px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: color-mix(in srgb, var(--op-ink) 22%, transparent); transition: transform .2s, background-color .2s; }
+.dk-dot:hover { transform: scale(1.3); }
+.dk-dot[aria-current="true"] { background: var(--op-accent); transform: scale(1.35); }
+.dk-dot:focus-visible { outline: 2px solid var(--op-accent); outline-offset: 3px; }
+.dk-dot span { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); white-space: nowrap; background: var(--op-ink); color: #fff; font-size: 12px; font-weight: 700; padding: 5px 10px; border-radius: 6px; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.dk-dot:hover span, .dk-dot:focus-visible span { opacity: 1; }
+
+/* Bottom bar: previous / counter / next. */
+.dk-bar { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); z-index: 60; display: flex; align-items: center; gap: 4px; background: var(--op-ink); color: #fff; border-radius: 999px; padding: 5px; box-shadow: 0 14px 30px -12px color-mix(in srgb, var(--op-ink) 60%, transparent); }
+.dk-arrow { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.1); color: #fff; display: grid; place-items: center; cursor: pointer; transition: background-color .15s; }
+.dk-arrow:hover { background: var(--op-accent); }
+.dk-arrow:disabled { opacity: .3; cursor: default; background: rgba(255,255,255,.1); }
+.dk-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.dk-count { display: flex; align-items: baseline; gap: 6px; padding: 0 12px; font-family: var(--op-font-mono); font-size: 13px; min-width: 190px; justify-content: center; }
+.dk-count b { font-size: 15px; }
+.dk-count > span { opacity: .55; }
+.dk-count em { font-style: normal; font-family: var(--op-font-body, inherit); font-weight: 700; font-size: 13px; margin-left: 6px; white-space: nowrap; }
+.dk-hint { position: fixed; left: 50%; bottom: 70px; transform: translateX(-50%); z-index: 59; margin: 0; font-size: 12px; color: var(--op-soft); background: color-mix(in srgb, var(--op-white, #fff) 85%, transparent); padding: 4px 10px; border-radius: 999px; transition: opacity .4s; }
+.dk-hint.is-gone { opacity: 0; pointer-events: none; }
+
+/* The page's own scroll-to-top button would sit on the bar; the bar does that job. */
+.dk .op-fab-right { display: none; }
+
+@media (max-width: 760px) {
+  .dk-dots { display: none; }
+  .dk .dk-slide { padding-top: calc(var(--op-head, 64px) + 16px); padding-bottom: 84px; }
+  .dk-count { min-width: 0; }
+  .dk-count em { display: none; }
+  .dk .op-crew-phone { max-height: none; }
+  .dk #site .op-dev-stage { max-height: none; }
+}
+
+.dk .op-sec-head .op-sec-text { margin-top: 10px; }
+.dk #paid-how .ag-table th, .dk #paid-how .ag-table td { padding-top: 7px; padding-bottom: 7px; }
+.dk #paid-how .op-ea-step { padding: 12px 14px 10px; }
+.dk #games .op-gphone { height: min(600px, calc(100svh - 230px)); }
+.dk #games .op-g-steps { gap: 10px; }
+.dk #extras .op-pick-grid { gap: 10px; }
+.dk #extras .op-pick { padding-top: 12px; padding-bottom: 12px; }
+@media (max-width: 760px) {
+  .dk .op-crew-grid, .dk #site .op-devices { max-width: none; }
+  .dk #games .op-gphone { height: 600px; }
+}
+
+@media (min-width: 1100px) {
+  .dk #site > .op-wrap { display: grid; grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); column-gap: 40px; align-items: start; }
+  .dk #site .op-sec-head { grid-column: 1; grid-row: 1; }
+  .dk #site .ag-chips { grid-column: 1; grid-row: 2; align-self: start; flex-direction: column; align-items: flex-start; }
+  .dk #site .op-devices { grid-column: 2; grid-row: 1 / span 3; align-self: center; }
+}
+.dk #games .op-gphone { height: min(600px, calc(100svh - 360px)); min-height: 440px; }
+.dk #site > .op-fs, .dk #crew > .op-fs { display: none; }
+
+/* Paged mode (desktop/tablet): JS moves one slide per gesture, so native snapping is off and each slide is one screen. */
+html.dk-paged:has(body.dk) { scroll-snap-type: none; scroll-behavior: auto; }
+html.dk-paged .dk .dk-slide { height: 100vh; height: 100svh; min-height: 0; overflow: hidden; }
+html.dk-paged .dk .dk-hero .op-hero { min-height: 0; height: 100%; }
+
+/* Live creator sites are previews only in paged mode: the wheel stays with the deck (the link under each opens it). */
+html.dk-paged .dk .op-crew-phone iframe { pointer-events: none; }
+
+/* Intro strip clears the slide bar; the scroll hint would sit on it, so it goes. */
+.dk .ag-trust { padding-bottom: 86px; }
+.dk-hint { display: none; }

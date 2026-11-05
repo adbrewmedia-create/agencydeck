@@ -1,0 +1,20 @@
+/*
+ * The offer preview page in this template's look.
+ *
+ * The page itself (layout, calculator, device preview, reply window) is `@gdc/offer-preview`'s stylesheet; what is
+ * template-specific is only the roles it paints with. They are mapped onto this template's own tokens, so the Colours
+ * and Fonts panels recolour the page exactly as they do the site: ink is the dark surface, white the light page,
+ * accent the primary. The shades between them are derived with `color-mix()`.
+ */
+
+.op-page[data-op-root] {
+  --op-ink: var(--t2-ink);
+  --op-white: var(--t2-bg);
+  --op-mist: color-mix(in srgb, var(--op-white) 92%, var(--op-ink));
+  --op-silver: color-mix(in srgb, var(--op-white) 78%, var(--op-ink));
+  --op-accent: var(--t2-primary);
+  --op-accent-text: color-mix(in srgb, var(--op-accent) 60%, var(--op-ink));
+  --op-on-accent: var(--op-ink);
+  --op-font-display: var(--t2-font-display);
+  --op-font-body: var(--t2-font-text, var(--t2-font-body));
+}

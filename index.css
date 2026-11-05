@@ -1,0 +1,6 @@
+/*
+ * Template 13's reference ships one stylesheet, and every rule of it lives in
+ * `extracted.css` in the reference's own order. This file is empty on purpose: each
+ * route and every export names a page sheet, so the pipeline stays the same as the
+ * other templates'.
+ */
